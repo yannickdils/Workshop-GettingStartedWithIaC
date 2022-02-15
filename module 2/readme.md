@@ -1,4 +1,6 @@
-# Getting started
+# Module 2: Infrastructure in Cloud
+
+## Getting started
 
 1. 💌 Send your mail-adres to **yannick.dils@xylos.com**
 2. ⏰ Wait for the invitation in your mailbox
