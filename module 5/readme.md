@@ -23,10 +23,9 @@ This exercise uses the Bicep extension for Visual Studio Code. Be sure to instal
 1. Open Visual Studio Code.
 2. Create a new file called main.bicep.
 3. Save the empty file so that Visual Studio Code loads the Bicep tooling.
+  You can either select File > Save As or select Ctrl+S in Windows (⌘+S on macOS). Be sure to remember where you've saved the file. For example, you might want to create a templates folder to save it in.
 
-You can either select File > Save As or select Ctrl+S in Windows (⌘+S on macOS). Be sure to remember where you've saved the file. For example, you might want to create a templates folder to save it in.
-
-4. Add the following content into the file. You'll deploy the template soon. It's a good idea to type this in yourself instead of copying and pasting, so that you can see how the tooling helps you to write your Bicep files.
+4. Add the following content into the file. You'll deploy the template soon. It's a good idea to type this in yourself instead of copying and pasting, so that you can see how the tooling helps you to write your Bicep files. Notice that Visual Studio Code automatically suggests property names as you type. The Bicep extension for Visual Studio Code understands the resources you're defining in your template, and it lists the available properties and values that you can use.
 
 ```bicep
 resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
@@ -44,7 +43,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
 
 > 💡 Bicep is strict about where you put line breaks, so make sure you don't put line breaks in different places than what's listed here.
 
-Notice that Visual Studio Code automatically suggests property names as you type. The Bicep extension for Visual Studio Code understands the resources you're defining in your template, and it lists the available properties and values that you can use.
+
 
 5. Update the name of the storage account from myhogentstorage to something that's likely to be unique. Make sure the name is all lowercase, without any special characters, and fewer than 24 characters.
 6. Save the changes to the file.
