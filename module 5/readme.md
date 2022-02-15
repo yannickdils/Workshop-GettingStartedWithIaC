@@ -14,11 +14,12 @@ During the process, you'll:
 - An Azure account with an active subscription. If you don't already have one, ask your instructor.
 - [Visual Studio Code](https://code.visualstudio.com/) with the [Bicep extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-bicep) installed.
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/) installed locally
+- [PowerShell 7.0+](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) installed locally
 - [Azure PowerShell module](https://www.powershellgallery.com/packages/Az/7.2.0) installed locally
 
 This exercise uses the Bicep extension for Visual Studio Code. Be sure to install this extension in Visual Studio Code.
 
-# Create a Bicep template that contains a storage account
+## Create a Bicep template that contains a storage account
 
 1. Open Visual Studio Code.
 2. Create a new file called main.bicep.
@@ -30,8 +31,8 @@ You can either select File > Save As or select Ctrl+S in Windows (⌘+S on macOS
 
 ```bicep
     resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-      name: 'toylaunchstorage'
-      location: 'eastus'
+      name: 'myhogentstorage'
+      location: 'westeurope'
       sku: {
         name: 'Standard_LRS'
       }
@@ -46,7 +47,7 @@ You can either select File > Save As or select Ctrl+S in Windows (⌘+S on macOS
 
 Notice that Visual Studio Code automatically suggests property names as you type. The Bicep extension for Visual Studio Code understands the resources you're defining in your template, and it lists the available properties and values that you can use.
 
-5. Update the name of the storage account from toylaunchstorage to something that's likely to be unique. Make sure the name is all lowercase, without any special characters, and fewer than 24 characters.
+5. Update the name of the storage account from myhogentstorage to something that's likely to be unique. Make sure the name is all lowercase, without any special characters, and fewer than 24 characters.
 6. Save the changes to the file.
 
 ## Deploy the Bicep template to Azure
@@ -133,7 +134,7 @@ The first time you deploy a Bicep template, you might want to use the Azure port
 7. Select 1 Succeeded to see the details of the deployment.
 ![Screenshot of the Azure portal interface for the deployments, with the one deployment listed and a succeeded status.](img/m54.png)
 8. Select the deployment called main to see what resources were deployed, and then select Deployment details to expand it. In this case, there's one storage account with the name that you specified.
-[Screenshot of the Azure portal interface for the specific deployment, with one storage account resource listed.](img/m55.png)
+![Screenshot of the Azure portal interface for the specific deployment, with one storage account resource listed.](img/m55.png)
 9. Leave the page open in your browser. You'll check on deployments again later.
 
 You can also verify the deployment from the command line. To do so, run the following Azure PowerShell command:
