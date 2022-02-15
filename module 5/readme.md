@@ -235,3 +235,4 @@ Notice that you're explicitly specifying the value for the ```environmentType```
 ![Screenshot of the Azure portal interface for the specific deployment, with the storage account resource listed with a generated name.](img/m56.png)
 
 4. Notice that the resource have been deployed with new, randomly generated names.
+
