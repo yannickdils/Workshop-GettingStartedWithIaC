@@ -8,7 +8,9 @@ This is the readme file for Module 1 of the getting started with infrastructure-
 
 # Portal actions
 
-
+1. Create a resource group in the **west europe** region named rg-weu-(Your own 3 letter abbreviation) 
+   ***Example: rg-weu-ydi***
 
 
 # ARM Template actions
+
