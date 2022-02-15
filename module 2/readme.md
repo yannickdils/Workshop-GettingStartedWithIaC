@@ -13,11 +13,3 @@ This is the readme file for Module 1 of the getting started with infrastructure-
 
 
 2. Create a virtual network in the **west europe** region, deploy if in your previously created resource group.
-
-
-# ARM Template actions
-
-1. Navigate to your virtual network in the Azure Portal
-2. Open the virtual network resource
-3. Scroll down to "Export Template"
-4. 
