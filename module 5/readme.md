@@ -26,7 +26,7 @@ This exercise uses the Bicep extension for Visual Studio Code. Be sure to instal
 
 You can either select File > Save As or select Ctrl+S in Windows (⌘+S on macOS). Be sure to remember where you've saved the file. For example, you might want to create a templates folder to save it in.
 
-4 Add the following content into the file. You'll deploy the template soon. It's a good idea to type this in yourself instead of copying and pasting, so that you can see how the tooling helps you to write your Bicep files.
+4. Add the following content into the file. You'll deploy the template soon. It's a good idea to type this in yourself instead of copying and pasting, so that you can see how the tooling helps you to write your Bicep files.
 
 ```bicep
 resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
