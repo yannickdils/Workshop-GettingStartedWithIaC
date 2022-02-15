@@ -6,9 +6,9 @@ Infrastructure as Code (IaC) is the management of infrastructure (networks, virt
 
 ## Jumpstarting our IaC experience
 
-In order to get a running start with Infrastructure as code, in Azure, we can export previously deployed resources as an Azure Resource Manager Template (ARM Template). While this offers us a great place to get started, the "**Export**" feature exports as much of the information as it can get its hands on, making the exported template quite verbose. Oftentimes the exported template must be modified before it can be of any real use, as we will demonstrate.
+In order to get a running start with Infrastructure as code, in Azure, we can export previously deployed resources as an Azure Resource Manager Template (ARM Template). While this offers us a great place to get started, the "**Export**" feature exports as much of the information as it can get its hands on, making the exported template quite verbose. Oftentimes the exported template must be modified before it can be of any real use.
 
-We can demonstrate this feature via the Portal.
+We can demonstrate this feature via the Portal, where we can export a template of the storage account from module two!
 
 1. Navigate to your storage account in the Azure Portal
 2. Open the storage account resource
@@ -31,3 +31,7 @@ We can demonstrate this feature via the Portal.
 
 - The "**Export**" may export redundant information which conflicts with defaults that are set by the Resource Provider at deployment time.
 - The storage account's name must be globally unique and if your storage account from module two is still operational then the Resource Provider will not be able to deploy another one with the same name. Try slightly modifying the storage account's name.
+
+## Was everything deployed succesfully?
+
+Take a look at the storage account that we just deployed, can you see what didn't get deployed?
