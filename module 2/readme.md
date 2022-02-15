@@ -12,4 +12,4 @@ This is the readme file for Module 1 of the getting started with infrastructure-
    ***Example: rg-weu-ydi***
 
 
-2. Create a virtual network in the **west europe** region, deploy if in your previously created resource group.
+2. Create a storage account in the **west europe** region, deploy it in your previously created resource group.
