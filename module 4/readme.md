@@ -27,15 +27,15 @@ Your file should contain something similar to the example below.
 
 ```JSON
 
-    {
-        "$schema": "<https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json>#",
-        "contentVersion": "1.0.0.0",
-        "parameters": {},
-        "functions": [],
-        "variables": {},
-        "resources": [],
-        "outputs": {}
-    }
+{
+    "$schema": "<https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json>#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "functions": [],
+    "variables": {},
+    "resources": [],
+    "outputs": {}
+}
 ```
 
 ## Add an Azure resource to the template
@@ -49,7 +49,6 @@ Place the cursor in the template resources block, type in storage, and select th
 The ```resources``` block should look similar to the example below.
 
 ```JSON
-
 "resources": [{
     "name": "storageaccount1",
     "type": "Microsoft.Storage/storageAccounts",
@@ -134,41 +133,71 @@ An Azure Resource Manager template parameter file allows you to store environmen
 1. Edit the ```value``` parameter and type in a name that meets the naming requirements. The azuredeploy.parameters.json file should be similar to the example below.
 
 ```JSON
-
-    {
-        "$schema": "<https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json>#",
-        "contentVersion": "1.0.0.0",
-        "parameters": {
-            "storageAccountName": {
-                "value": "hogent-<yourname>storageacctarm"
-            }
+{
+    "$schema": "<https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json>#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "value": "hogent-<yourname>storageacctarm"
         }
     }
+}
 ```
 
 ## Deploy the template
 
 It's time to deploy the template. Follow the steps below, in the VS Code terminal, to connect to Azure and deploy the new storage account resource.
 
-1. Connect to Azure by using the az login command.
+1. Connect to Azure by using the ```az login``` command.
 
 ```shell
 az login
 ```
 
-Create a resource group to contain the new resource. Replace```<myLocation>``` with a region near you.
+2. If you have access to multiple Azure subscriptions, they may be listed after running the login command. You can see the one you are currently connected to by running the ```az account show``` command.
+
+```shell
+az account show
+```
+
+It may produce an output similar to the following:
+
+```json
+{
+  "environmentName": "AzureCloud",
+  "homeTenantId": "00000000-0000-0000-0000-000000000000",
+  "id": "11111111-0000-0000-0000-000000000000",
+  "isDefault": true,
+  "managedByTenants": [],
+  "name": "Visual Studio Enterprise Subscription",
+  "state": "Enabled",
+  "tenantId": "00000000-0000-0000-0000-000000000000",
+  "user": {
+    "name": "my@username.com",
+    "type": "user"
+  }
+}
+```
+
+3. If you are not connected to the instructor's subscription, you can switch subscriptions by running the ```az account set --subscription <subscription-name or subscription-id>```.
+
+```shell
+az account set --subscription "11111111-0000-0000-0000-000000000000"
+```
+
+4. Create a resource group to contain the new resource. Replace```<myLocation>``` with a region near you.
 
 ```shell
 az group create --name hogent-<yourname>-arm-rg --location <myLocation>
 ```
 
-Use the ```az deployment group create``` command to deploy your template. The deployment will take a few minutes to complete, progress will be shown in the terminal.
+5. Use the ```az deployment group create``` command to deploy your template. The deployment will take a few minutes to complete, progress will be shown in the terminal.
 
 ```shell
 az  group deployment create --resource-group hogent-<yourname>-arm-rg --template-file azuredeploy.json --parameters azuredeploy.parameters.json
 ```
 
-You can verify the deployment by running the command below. Replace ```<myStorageAccount>``` with the name you used earlier.
+6. You can verify the deployment by running the command below. Replace ```<myStorageAccount>``` with the name you used earlier.
 
 ```shell
 az storage account show --resource-group hogent-<yourname>-arm-rg --name <myStorageAccount>

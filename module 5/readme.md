@@ -1,13 +1,12 @@
 # Exercise: Create and deploy Azure Bicep templates by using Visual Studio Code
 
-For your toy launch website, you decide to first create a proof of concept by creating a basic Bicep template. In this exercise, you'll create a storage account, Azure App Service plan, and app. Later, you'll modify the template to make it more reusable.
+For your website, you decide to first create a proof of concept by creating a basic Bicep template. In this exercise, you'll create a storage account. Later, you'll modify the template to make it more reusable.
 
 During the process, you'll:
 
 1. Create a template that defines a single storage account resource that includes hard-coded values.
 1. Provision your infrastructure and verify the result.
-1. Add an App Service plan and app to the template.
-1. Provision the infrastructure again to see the new resources.
+1. Provision the infrastructure again to see the new resource.
 
 ## Prerequisites
 
@@ -83,31 +82,29 @@ A browser opens so that you can sign in to your Azure account.
 3. Set the default subscription for all of the Azure PowerShell commands that you run in this session.
 
 ```powerShell
-$context = Get-AzSubscription -SubscriptionName 'Concierge Subscription'
+$context = Get-AzSubscription -SubscriptionName 'Name of the subscription'
 Set-AzContext $context
 ```
 
 > ⚠️ If you've used more than one subscription recently, the terminal might display more than one subscriptions. In this case, use the next two steps to set one as the default subscription. If the preceding command was successful, and only one subscription is listed, skip the next two steps.
 
-4. Get the subscription ID. Running the following command lists your subscriptions and their IDs. Look for Concierge Subscription, and then copy the ID from the second column. It looks something like cf49fbbc-217c-4eb6-9eb5-a6a6c68295a0.
+4. Get the subscription ID. Running the following command lists your subscriptions and their IDs. Look for the instructor's subscription, and then copy the ID from the second column. It looks something like cf49fbbc-217c-4eb6-9eb5-a6a6c68295a0.
 
 ```PowerShell
 Get-AzSubscription
 ```
 
-5. Change your active subscription to Concierge Subscription. Be sure to replace {Your subscription ID} with the one that you copied.
+5. Change your active subscription to the instructor's subscription. Be sure to replace {Your subscription ID} with the one that you copied.
 
 ```PowerShell
-$context = Get-AzSubscription -SubscriptionId {Your subscription ID}
+$context = Get-AzSubscription -SubscriptionId <Your-subscription-ID>
 Set-AzContext $context
 ```
 
-## Set the default resource group
-
-You can set the default resource group and omit the parameter from the rest of the Azure PowerShell commands in this exercise. Set this default to the resource group created for you in the environment.
+## Create resource group
 
 ```powershell
-Set-AzDefault -ResourceGroupName [resource group name]
+New-AzResourceGroup -Name "hogent-<yourname>-rg" -Location "westeurope"
 ```
 
 ## Deploy the template to Azure
@@ -115,7 +112,7 @@ Set-AzDefault -ResourceGroupName [resource group name]
 Deploy the template to Azure by using the following Azure PowerShell command in the terminal. This can take a minute or two to complete, and then you'll see a successful deployment.
 
 ```PowerShell
-New-AzResourceGroupDeployment -TemplateFile main.bicep
+New-AzResourceGroupDeployment -TemplateFile main.bicep -ResourceGroupName "hogent-<yourname>-rg"
 ```
 
 ## Verify the deployment
@@ -126,7 +123,7 @@ The first time you deploy a Bicep template, you might want to use the Azure port
 2. Select your avatar in the upper-right corner of the page.
 3. Select Switch directory. In the list, choose the instructor's directory.
 4. On the left-side panel, select Resource groups.
-5. Select [esource group name].
+5. Select your resource group name.
 6. In Overview, you can see that one deployment succeeded.
 ![Screenshot of the Azure portal interface for the resource group overview, with the deployments section showing that one succeeded.](img/m53.png)
 7. Select 1 Succeeded to see the details of the deployment.
@@ -138,7 +135,7 @@ The first time you deploy a Bicep template, you might want to use the Azure port
 You can also verify the deployment from the command line. To do so, run the following Azure PowerShell command:
 
 ```poweshell
-Get-AzResourceGroupDeployment -ResourceGroupName [resource group name] | Format-Table
+Get-AzResourceGroupDeployment -ResourceGroupName "hogent-<yourname>-rg" | Format-Table
 ```
 
 ## Add the location and resource name parameters
@@ -153,8 +150,6 @@ param storageAccountName string = 'myhogentsa${uniqueString(resourceGroup().id)}
 As you type, the Bicep linter adds yellow squiggly lines underneath each of the parameter and variable names to indicate they're not currently used. You'll fix this soon.
 
 Notice that you're using expressions that include string interpolation, the ```uniqueString()``` function, and the ```resourceGroup()``` function to define default parameter values. Someone deploying this template can override the default parameter values by specifying the values at deployment time, but they can't override the variable values.
-
-Also notice that you're using a variable for the name of the Azure App Service plan, but you use parameters for the other names. Storage accounts and App Service apps need globally unique names, but App Service plan names need to be unique only within their resource group. This difference means it's not a concern to use the same App Service plan name across different deployments, as long as the deployments are all going into different resource groups.
 
 2. Find the places within the resource definitions where the location and name properties are set, and update them to use the parameter values. After you're finished, the resource definitions within your Bicep file should look like this:
 
@@ -222,9 +217,10 @@ Run the following Azure PowerShell command in the terminal. This is similar to t
 
 ```PowerShell
 New-AzResourceGroupDeployment `
+  -ResourceGroupName "hogent-<yourname>-rg" `
   -TemplateFile main.bicep `
   -environmentType nonprod
-````
+```
 
 Notice that you're explicitly specifying the value for the ```environmentType``` parameter when you execute the deployment. You don't need to specify all of the other parameter values because they have defaults that make sense.
 
@@ -232,8 +228,8 @@ Notice that you're explicitly specifying the value for the ```environmentType```
 
 1. In your browser, go back to the Azure portal. Go to your resource group. You'll still see one successful deployment, because the deployment used the same name as the first deployment
 2. Select the 1 Succeeded link
-3. Select the deployment called main, and then select Deployment details to expand the list of deployed resources.
+3. Select the deployment called main, and then select Deployment details to expand the list of deployed resource.
 
-![Screenshot of the Azure portal interface for the specific deployment, with storage account and App Service resources listed with generated names.](img/m56.png)
+![Screenshot of the Azure portal interface for the specific deployment, with the storage account resource listed with a generated name.](img/m56.png)
 
-4. Notice that the resources have been deployed with new, randomly generated names.
+4. Notice that the resource have been deployed with new, randomly generated names.
