@@ -1,6 +1,6 @@
-This is the readme file for Module 3 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
+# Module 3: Infrastructure as Code intro
 
-# ARM Template actions
+## ARM Template actions
 
 1. Navigate to your storage account in the Azure Portal
 2. Open the storage account resource
