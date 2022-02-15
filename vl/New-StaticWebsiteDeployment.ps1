@@ -36,6 +36,3 @@ $storageAccount = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -Ac
 # Enable the static website feature on the storage account.
 $ctx = $storageAccount.Context
 Enable-AzStorageStaticWebsite -Context $ctx -IndexDocument $IndexDocumentPath -ErrorDocument404Path $ErrorDocument404Path
-
-# Add the two HTML pages.
-Get-ChildItem -Path $PathToSimpleStaticSite  -File -Recurse | Set-AzStorageBlobContent -Container '$web' # 👈 Use single quotes to  escape the dollar sign!
