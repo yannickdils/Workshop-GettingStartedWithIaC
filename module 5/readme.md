@@ -1,4 +1,6 @@
-# Exercise: Create and deploy Azure Bicep templates by using Visual Studio Code
+# Module 5: BICEP Deep Dive
+
+## Exercise: Create and deploy Azure Bicep templates by using Visual Studio Code
 
 For your website, you decide to first create a proof of concept by creating a basic Bicep template. In this exercise, you'll create a storage account. Later, you'll modify the template to make it more reusable.
 
@@ -8,7 +10,7 @@ During the process, you'll:
 1. Provision your infrastructure and verify the result.
 1. Provision the infrastructure again to see the new resource.
 
-## Prerequisites
+### Prerequisites
 
 - An Azure account with an active subscription. If you don't already have one, ask your instructor.
 - [Visual Studio Code](https://code.visualstudio.com/) with the [Bicep extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-bicep) installed.
@@ -17,7 +19,7 @@ During the process, you'll:
 
 This exercise uses the Bicep extension for Visual Studio Code. Be sure to install this extension in Visual Studio Code.
 
-## Create a Bicep template that contains a storage account
+### Create a Bicep template that contains a storage account
 
 1. Open Visual Studio Code.
 2. Create a new file called main.bicep.
@@ -47,7 +49,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
 5. Update the name of the storage account from myhogentstorage to something that's likely to be unique. Make sure the name is all lowercase, without any special characters, and fewer than 24 characters.
 6. Save the changes to the file.
 
-## Deploy the Bicep template to Azure
+### Deploy the Bicep template to Azure
 
 To deploy this template to Azure, sign in to your Azure account from the Visual Studio Code terminal.
 
@@ -63,11 +65,11 @@ If pwsh or PowerShell isn't displayed, select the dropdown control, choose Selec
 cd templates
 ```
 
-## Install the Bicep CLI
+### Install the Bicep CLI
 
 To use Bicep from Azure PowerShell, [install the Bicep CLI](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/bicep-install?tabs=azure-powershell#install-manually).
 
-## Sign in to Azure by using Azure PowerShell
+### Sign in to Azure by using Azure PowerShell
 
 1. In the Visual Studio Code terminal, run the following command:
 
@@ -101,13 +103,13 @@ $context = Get-AzSubscription -SubscriptionId <Your-subscription-ID>
 Set-AzContext $context
 ```
 
-## Create resource group
+### Create resource group
 
 ```powershell
 New-AzResourceGroup -Name "hogent-<yourname>-rg" -Location "westeurope"
 ```
 
-## Deploy the template to Azure
+### Deploy the template to Azure
 
 Deploy the template to Azure by using the following Azure PowerShell command in the terminal. This can take a minute or two to complete, and then you'll see a successful deployment.
 
@@ -115,7 +117,7 @@ Deploy the template to Azure by using the following Azure PowerShell command in 
 New-AzResourceGroupDeployment -TemplateFile main.bicep -ResourceGroupName "hogent-<yourname>-rg"
 ```
 
-## Verify the deployment
+### Verify the deployment
 
 The first time you deploy a Bicep template, you might want to use the Azure portal to verify that the deployment has finished successfully and to inspect the results.
 
@@ -138,7 +140,7 @@ You can also verify the deployment from the command line. To do so, run the foll
 Get-AzResourceGroupDeployment -ResourceGroupName "hogent-<yourname>-rg" | Format-Table
 ```
 
-## Add the location and resource name parameters
+### Add the location and resource name parameters
 
 1. In the main.bicep file in Visual Studio Code, add the following code to the top of the file:
 
@@ -169,7 +171,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
 
 3. Save the changes to the file.
 
-## Automatically set the SKUs for each environment type
+### Automatically set the SKUs for each environment type
 
 1. In the main.bicep file in Visual Studio Code, add the following Bicep parameter below the parameters that you created in the previous task:
 
@@ -211,7 +213,7 @@ Notice that you haven't parameterized everything. You've set some properties rig
 
 4. Save the changes to the file.
 
-## Deploy the updated Bicep template
+### Deploy the updated Bicep template
 
 Run the following Azure PowerShell command in the terminal. This is similar to the command you ran before.
 
@@ -224,7 +226,7 @@ New-AzResourceGroupDeployment `
 
 Notice that you're explicitly specifying the value for the ```environmentType``` parameter when you execute the deployment. You don't need to specify all of the other parameter values because they have defaults that make sense.
 
-## Check your deployment
+### Check your deployment
 
 1. In your browser, go back to the Azure portal. Go to your resource group. You'll still see one successful deployment, because the deployment used the same name as the first deployment
 2. Select the 1 Succeeded link

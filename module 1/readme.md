@@ -1,3 +1,3 @@
-This is the readme file for Module 1 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
+# Module 1: The history of IT Infrastructure
 
-There are no co-creation activities for Module 1
+There are no co-creation activities for Module 1!
