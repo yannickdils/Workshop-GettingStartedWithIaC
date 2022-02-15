@@ -13,7 +13,6 @@ During the process, you'll:
 
 - An Azure account with an active subscription. If you don't already have one, ask your instructor.
 - [Visual Studio Code](https://code.visualstudio.com/) with the [Bicep extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-bicep) installed.
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/) installed locally
 - [PowerShell 7.0+](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) installed locally
 - [Azure PowerShell module](https://www.powershellgallery.com/packages/Az/7.2.0) installed locally
 
@@ -30,17 +29,17 @@ You can either select File > Save As or select Ctrl+S in Windows (⌘+S on macOS
 4 Add the following content into the file. You'll deploy the template soon. It's a good idea to type this in yourself instead of copying and pasting, so that you can see how the tooling helps you to write your Bicep files.
 
 ```bicep
-    resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
-      name: 'myhogentstorage'
-      location: 'westeurope'
-      sku: {
-        name: 'Standard_LRS'
-      }
-      kind: 'StorageV2'
-      properties: {
-        accessTier: 'Hot'
-      }
-    }
+resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
+  name: 'myhogentsa'
+  location: 'westeurope'
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    accessTier: 'Hot'
+  }
+}
 ```
 
 > 💡 Bicep is strict about where you put line breaks, so make sure you don't put line breaks in different places than what's listed here.
@@ -100,8 +99,8 @@ Get-AzSubscription
 5. Change your active subscription to Concierge Subscription. Be sure to replace {Your subscription ID} with the one that you copied.
 
 ```PowerShell
-    $context = Get-AzSubscription -SubscriptionId {Your subscription ID}
-    Set-AzContext $context
+$context = Get-AzSubscription -SubscriptionId {Your subscription ID}
+Set-AzContext $context
 ```
 
 ## Set the default resource group
@@ -142,3 +141,100 @@ You can also verify the deployment from the command line. To do so, run the foll
 ```poweshell
 Get-AzResourceGroupDeployment -ResourceGroupName [resource group name] | Format-Table
 ```
+
+## Add the location and resource name parameters
+
+1. In the main.bicep file in Visual Studio Code, add the following code to the top of the file:
+
+```bicep
+param location string = resourceGroup().location
+param storageAccountName string = 'myhogentsa${uniqueString(resourceGroup().id)}'
+```
+
+As you type, the Bicep linter adds yellow squiggly lines underneath each of the parameter and variable names to indicate they're not currently used. You'll fix this soon.
+
+Notice that you're using expressions that include string interpolation, the ```uniqueString()``` function, and the ```resourceGroup()``` function to define default parameter values. Someone deploying this template can override the default parameter values by specifying the values at deployment time, but they can't override the variable values.
+
+Also notice that you're using a variable for the name of the Azure App Service plan, but you use parameters for the other names. Storage accounts and App Service apps need globally unique names, but App Service plan names need to be unique only within their resource group. This difference means it's not a concern to use the same App Service plan name across different deployments, as long as the deployments are all going into different resource groups.
+
+2. Find the places within the resource definitions where the location and name properties are set, and update them to use the parameter values. After you're finished, the resource definitions within your Bicep file should look like this:
+
+```bicep
+resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
+  name: storageAccountName
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    accessTier: 'Hot'
+  }
+}
+```
+
+3. Save the changes to the file.
+
+## Automatically set the SKUs for each environment type
+
+1. In the main.bicep file in Visual Studio Code, add the following Bicep parameter below the parameters that you created in the previous task:
+
+```bicep
+@allowed([
+  'nonprod'
+  'prod'
+])
+param environmentType string
+```
+
+Notice that you're defining a parameter with a set of allowed values, but you're not specifying a default value for this parameter.
+
+2. Below the line that declares the appServicePlanName variable, add the following variable definitions:
+
+```bicep
+var storageAccountSkuName = (environmentType == 'prod') ? 'Standard_GRS' : 'Standard_LRS'
+```
+
+Notice that you're setting these variables' values by using the ternary operator to express some if/then/else logic.
+
+3. Find the places within the resource definitions where the sku properties are set, and update them to use the parameter values. After you're finished, the resource definitions in your Bicep file should look like this:
+
+```bicep
+resource storageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
+  name: storageAccountName
+  location: location
+  sku: {
+    name: storageAccountSkuName
+  }
+  kind: 'StorageV2'
+  properties: {
+    accessTier: 'Hot'
+  }
+}
+```
+
+Notice that you haven't parameterized everything. You've set some properties right in the resource definitions where you know these aren't going to change between deployments.
+
+4. Save the changes to the file.
+
+## Deploy the updated Bicep template
+
+Run the following Azure PowerShell command in the terminal. This is similar to the command you ran before.
+
+```PowerShell
+New-AzResourceGroupDeployment `
+  -TemplateFile main.bicep `
+  -environmentType nonprod
+````
+
+Notice that you're explicitly specifying the value for the ```environmentType``` parameter when you execute the deployment. You don't need to specify all of the other parameter values because they have defaults that make sense.
+
+## Check your deployment
+
+1. In your browser, go back to the Azure portal. Go to your resource group. You'll still see one successful deployment, because the deployment used the same name as the first deployment
+2. Select the 1 Succeeded link
+3. Select the deployment called main, and then select Deployment details to expand the list of deployed resources.
+
+![Screenshot of the Azure portal interface for the specific deployment, with storage account and App Service resources listed with generated names.](img/m56.png)
+
+4. Notice that the resources have been deployed with new, randomly generated names.
