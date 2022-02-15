@@ -8,7 +8,6 @@ This is the readme file for Module 1 of the getting started with infrastructure-
 
 # Portal actions
 
-1. Create a resource group in the **west europe** region named rg-weu-(Your own 3 letter abbreviation)
-   ***Example: rg-weu-ydi***
-
-2. Create a storage account in the **west europe** region, deploy it in your previously created resource group.
+- Create a resource group in the **west europe** region named hogent-(your name initials)-rg
+  - ***Example: hogent-ydi-rg***
+- Create a storage account in the **west europe** region, deploy it in your previously created resource group.
