@@ -1,1 +1,0 @@
-This is the readme file for Module 8 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
