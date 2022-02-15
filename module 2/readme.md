@@ -11,3 +11,5 @@ This is the readme file for Module 1 of the getting started with infrastructure-
 - Create a resource group in the **west europe** region named hogent-(your name initials)-rg
   - ***Example: hogent-ydi-rg***
 - Create a storage account in the **west europe** region, deploy it in your previously created resource group.
+
+![Screenshot of the new resource group experience in the Azure Portal, using the settings described earlier.](img/m21.png)
