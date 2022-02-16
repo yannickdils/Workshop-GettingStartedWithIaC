@@ -17,6 +17,10 @@ In this exercise you will learn how to use Visual Studio Code, and the Azure Res
 - [Visual Studio Code](https://code.visualstudio.com/) with the [Azure Resource Manager Tools](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) installed.
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/) installed locally
 
+### Useful links
+- [Azure ARM Syntax](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/syntax)
+- [Azure ARM Resource definitions](https://docs.microsoft.com/en-us/azure/templates/)
+
 ### Create an Azure Resource Manager template
 
 Create and open a new file named azuredeploy.json with Visual Studio Code.
