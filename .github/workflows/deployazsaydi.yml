@@ -28,5 +28,5 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: $RUNNER_TEMP/module7-artifacts/main.bicep
+        template: '$RUNNER_TEMP/module7-artifacts/main.bicep'
         failOnStdErr: false
