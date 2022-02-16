@@ -12,15 +12,6 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Copy to artifacts path
-      run:  |
-        # ls -la $GITHUB_WORKSPACE/module\ 7/
-        # moduleSevenSourcePath="$GITHUB_WORKSPACE/module\ 7/"
-        # ls -la "$moduleSevenSourcePath"
-        # moduleSevenArtifactsPath="$RUNNER_TEMP/module7-artifacts"
-        mkdir -p $RUNNER_TEMP/module7-artifacts
-        cp -avR $GITHUB_WORKSPACE/module\ 7/ $RUNNER_TEMP/module7-artifacts 
       
       # Deploy Bicep file
     - name: deploy
