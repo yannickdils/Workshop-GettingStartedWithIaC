@@ -1,14 +1,14 @@
-This is the readme file for Module 7 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
+# Module 7: Github 💖 BICEP
 
-# BICEP Template actions
+## GitHub Actions
 
-There is a sample bicep template available in the module 7 folder.
+GitHub Actions optimize code delivery time from idea to deployment on a community-powered platform. We will use a continuous integration (CI) and continuous delivery (CD) system to automate all the build, test, and deployment tasks. We can combine our knowledge of infrastructure as code (IaC) to automate the deployment of the infrastructure.
 
-# GitHub Actions Actions :D
+There are several tools available to help you achieve these goals. However, since you're already using GitHub for your code repository, you decide to investigate GitHub Actions to see if it provides the automation you need.
 
 ## Generate deployment credentials
 
-Your GitHub action runs under an identity. Use the [az ad sp create-for-rbac](/cli/azure/ad/sp#az_ad_sp_create_for_rbac) command to create a [service principal](../../active-directory/develop/app-objects-and-service-principals.md#service-principal-object) for the identity.
+Your GitHub action runs under an identity. Use the [az ad sp create-for-rbac](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest) command to create a [service principal](https://docs.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux) for the identity.
 
 Replace the placeholder `myApp` with the name of your application. Replace `{subscription-id}` with your subscription ID.
 
@@ -16,8 +16,7 @@ Replace the placeholder `myApp` with the name of your application. Replace `{sub
 az ad sp create-for-rbac --name myApp --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/"hogent-(initials)-rg" --sdk-auth
 ```
 
-> [!IMPORTANT]
-> The scope in the previous example is limited to the resource group. We recommend that you grant minimum required access.
+> 💡 The scope in the previous example is limited to the resource group. We recommend that you grant minimum required access.
 
 The output is a JSON object with the role assignment credentials that provide access to your App Service app similar to below. Copy this JSON object for later. You'll only need the sections with the `clientId`, `clientSecret`, `subscriptionId`, and `tenantId` values.
 
@@ -49,7 +48,7 @@ Create secrets for your Azure credentials, resource group, and subscriptions.
 
 Add a Bicep file to your GitHub repository. In the module 7 directory, a template bicep file is available.
 
-You can put the file anywhere in the repository. The workflow sample in the next section assumes the Bicep file is named **main.bicep**, and it's stored at the root of your repository.
+You can put the file anywhere in the repository. The workflow sample in the next section assumes the Bicep file is named **main.bicep**, and is stored in the 'module 7' folder of your repository.
 
 ## Create workflow
 
@@ -91,8 +90,7 @@ To create a workflow, take the following steps:
 
     Replace `mystore` with your own storage account name prefix.
 
-    > [!NOTE]
-    > You can specify a JSON format parameters file instead in the ARM Deploy action (example: `.azuredeploy.parameters.json`).
+    > 💡 You can specify a JSON format parameters file instead in the ARM Deploy action (example: `.azuredeploy.parameters.json`).
 
     The first section of the workflow file includes:
 
@@ -111,20 +109,26 @@ Updating either the workflow file or Bicep file triggers the workflow. The workf
 1. Select the workflow to open it.
 1. Select **Run ARM deploy** from the menu to verify the deployment.
 
+## Enabling Static Site Hosting
+
+Try expanding the Workflow's steps so that you can enable static site hosting on the Storage Account via the CLI or Azure PowerShell, as we did with module 6. Additionally you should proceed to copy over the static website files to the Azure Storage Account's ```$web``` container.
+
 ## Clean up resources
 
 When your resource group and repository are no longer needed, clean up the resources you deployed by deleting the resource group and your GitHub repository.
 
-# [CLI](#tab/CLI)
+Via the Azure CLI:
 
-```azurecli
+```shell
 az group delete --name "hogent-(initials)-rg"
 ```
 
-# [PowerShell](#tab/PowerShell)
+Via Azure PowerShell:
 
-```azurepowershell
+```powershell
 Remove-AzResourceGroup -Name "hogent-(initials)-rg""
 ```
+
+ 
 
 ---
