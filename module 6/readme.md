@@ -1,1 +1,3 @@
-This is the readme file for Module 6 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
+# Module 6: BICEP in practice
+
+There are no co-creation activities for Module 6!
