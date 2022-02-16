@@ -111,7 +111,7 @@ Updating either the workflow file or Bicep file triggers the workflow. The workf
 
 ## Enabling Static Site Hosting
 
-Try expanding the Workflow's steps so that you can enable static site hosting on the Storage Account via the Azure CLI or Azure PowerShell. Additionally you should proceed to copy over the static website files, from [module 2](https://github.com/yannickdils/Workshop-GettingStartedWithIaC/tree/main/module%202/simple-static-site), to the Azure Storage Account's ```$web``` container.
+Try expanding the Workflow's steps so that you can [enable static site hosting](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website-how-to?tabs=azure-portal) on the Storage Account via the Azure CLI or Azure PowerShell. Additionally you should proceed to copy over the static website files, from [module 2](https://github.com/yannickdils/Workshop-GettingStartedWithIaC/tree/main/module%202/simple-static-site), to the Azure Storage Account's ```$web``` container.
 
 > 💡 Optionally you could look in to the [azcopy tool](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10), which is the preferred way to transfer all sorts of files to Azure Storage.
 
