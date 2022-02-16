@@ -19,6 +19,10 @@ During the process, you'll:
 
 This exercise uses the Bicep extension for Visual Studio Code. Be sure to install this extension in Visual Studio Code.
 
+## Useful links
+- [Azure Bicep Syntax](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/file)
+- [Azure ARM Resource definitions](https://docs.microsoft.com/en-us/azure/templates/)
+
 ### Create a Bicep template that contains a storage account
 
 1. Open Visual Studio Code.
