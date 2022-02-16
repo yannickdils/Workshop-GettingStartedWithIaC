@@ -15,7 +15,7 @@ jobs:
 
     - name: List folder contents
       run:  |
-        ls -la ${{ env.GITHUB_WORKSPACE }}/module\ 7/
+        ls -la $GITHUB_WORKSPACE/module\ 7/
 
       # Deploy Bicep file
     - name: deploy
