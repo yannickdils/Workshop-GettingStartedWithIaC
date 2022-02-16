@@ -84,7 +84,7 @@ To create a workflow, take the following steps:
           with:
             subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
             resourceGroupName: ${{ secrets.AZURE_RG }}
-            template: ./module7/main.bicep
+            template: '"./module 7/main.bicep"'
             failOnStdErr: false
     ```
 
