@@ -16,10 +16,10 @@ jobs:
     - name: Copy to artifacts path
       run:  |
         ls -la $GITHUB_WORKSPACE/module\ 7/
-        moduleSevenSourcePath="${GITHUB_WORKSPACE}/module\ 7"
+        moduleSevenSourcePath="${GITHUB_WORKSPACE}/module\ 7/"
         moduleSevenArtifactsPath="${RUNNER_TEMP}/module7-artifacts"
         mkdir -p "$moduleSevenArtifactsPath"
-        cp "$moduleSevenSourcePath" "$moduleSevenArtifactsPath"
+        cp -avR "$moduleSevenSourcePath" "$moduleSevenArtifactsPath"
         
       # Deploy Bicep file
     - name: deploy
