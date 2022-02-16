@@ -10,9 +10,11 @@
 
 1. Create a resource group in the **west europe** region named hogent-(your name initials)-rg
     1. ***Example: hogent-ydi-rg***
-1. Create a storage account in the **west europe** region, deploy it in your previously created resource group.
-
-![Screenshot of the new resource group experience in the Azure Portal, using the settings described earlier.](img/m21.png)
+       ![Screenshot of the new resource group experience in the Azure Portal, using the settings described earlier.](img/m21.png)
+1. From the newly created resource group, click the "Create" button.
+1. In the "Create a resource" tab and select (or search) "Storage Account". 
+1. In the creation tab, ensure that you deploy the Storage Account in the "**West Europe**" region. Check that your previously created resource group is selected as the target resource group.
+  
 
 ## Enabling static website hosting in Azure Storage
 
