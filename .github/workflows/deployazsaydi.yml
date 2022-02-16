@@ -17,6 +17,7 @@ jobs:
       run:  |
         ls -la $GITHUB_WORKSPACE/module\ 7/
         moduleSevenSourcePath="${GITHUB_WORKSPACE}/module\ 7/"
+        ls -la "$moduleSevenSourcePath"
         moduleSevenArtifactsPath="${RUNNER_TEMP}/module7-artifacts"
         mkdir -p "$moduleSevenArtifactsPath"
         cp -avR "$moduleSevenSourcePath" "$moduleSevenArtifactsPath"
