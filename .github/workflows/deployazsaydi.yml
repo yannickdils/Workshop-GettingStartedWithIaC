@@ -16,9 +16,9 @@ jobs:
     - name: Copy to artifacts path
       run:  |
         ls -la $GITHUB_WORKSPACE/module\ 7/
-        moduleSevenSourcePath="${GITHUB_WORKSPACE}/module\ 7/"
+        moduleSevenSourcePath="$GITHUB_WORKSPACE/module\ 7/"
         ls -la "$moduleSevenSourcePath"
-        moduleSevenArtifactsPath="${RUNNER_TEMP}/module7-artifacts"
+        moduleSevenArtifactsPath="$RUNNER_TEMP/module7-artifacts"
         mkdir -p "$moduleSevenArtifactsPath"
         cp -avR "$moduleSevenSourcePath" "$moduleSevenArtifactsPath"
         
@@ -28,5 +28,5 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ${RUNNER_TEMP}/module7-artifacts/main.bicep
+        template: $RUNNER_TEMP/module7-artifacts/main.bicep
         failOnStdErr: false
