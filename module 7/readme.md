@@ -1,9 +1,8 @@
 This is the readme file for Module 7 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
 
-This is the readme file for Module 3 of the getting started with infrastructure-as-code on Azure workshop for HoGent.
-
 # BICEP Template actions
 
+There is a sample bicep template available in the module 7 folder.
 
 # GitHub Actions Actions :D
 
@@ -14,7 +13,7 @@ Your GitHub action runs under an identity. Use the [az ad sp create-for-rbac](/c
 Replace the placeholder `myApp` with the name of your application. Replace `{subscription-id}` with your subscription ID.
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name myApp --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/exampleRG --sdk-auth
+az ad sp create-for-rbac --name myApp --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/"hogent-(initials)-rg" --sdk-auth
 ```
 
 > [!IMPORTANT]
@@ -42,7 +41,7 @@ Create secrets for your Azure credentials, resource group, and subscriptions.
 
 1. Paste the entire JSON output from the Azure CLI command into the secret's value field. Name the secret `AZURE_CREDENTIALS`.
 
-1. Create another secret named `AZURE_RG`. Add the name of your resource group to the secret's value field (`exampleRG`).
+1. Create another secret named `AZURE_RG`. Add the name of your resource group to the secret's value field (`"hogent-(initials)-rg"`).
 
 1. Create another secret named `AZURE_SUBSCRIPTION`. Add your subscription ID to the secret's value field (example: `90fd3f9d-4c61-432d-99ba-1273f236afa2`).
 
@@ -119,18 +118,13 @@ When your resource group and repository are no longer needed, clean up the resou
 # [CLI](#tab/CLI)
 
 ```azurecli
-az group delete --name exampleRG
+az group delete --name "hogent-(initials)-rg"
 ```
 
 # [PowerShell](#tab/PowerShell)
 
 ```azurepowershell
-Remove-AzResourceGroup -Name exampleRG
+Remove-AzResourceGroup -Name "hogent-(initials)-rg""
 ```
 
 ---
-
-## Next steps
-
-> [!div class="nextstepaction"]
-> [Bicep file structure and syntax](file.md)
